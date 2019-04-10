@@ -4,8 +4,8 @@ from typing import List
 from typing import Dict
 
 import errno
-import json
 import os
+import pickle
 
 from operator import itemgetter
 from pathlib import Path
@@ -43,8 +43,8 @@ class Ports:
         return self.ports[self.index][0]
 
 class PortsList:
-    FILE_PORTS = 'ports.json'
-    FILE_DISTANCES = 'distances.json'
+    FILE_PORTS = 'ports.p'
+    FILE_DISTANCES = 'distances.p'
 
     def __init__(self, directory: str) -> None:
         path = Path(directory).resolve()
@@ -57,15 +57,15 @@ class PortsList:
     def ports(self) -> Optional[Dict]:
         if self.ports_list is None:
             path = self.path.joinpath(PortsList.FILE_PORTS)
-            with path.open() as file:
-                self.ports_list = json.load(file)
+            with path.open('rb') as file:
+                self.ports_list = pickle.load(file)
 
         return self.ports_list
 
     def distances(self, name: str) -> Optional[Dict]:
         path = self.path.joinpath(PortsList.FILE_DISTANCES)
-        with path.open() as file:
-            ports = json.load(file)
+        with path.open('rb') as file:
+            ports = pickle.load(file)
 
         for port in ports:
             if port['properties']['city'] == name:
