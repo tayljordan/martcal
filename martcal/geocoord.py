@@ -3,7 +3,7 @@ import math
 from geopy.distance import great_circle
 
 class GeoCoord:
-    def __init__(self, latitude: float, longitude: float):
+    def __init__(self, latitude: float, longitude: float) -> None:
         self.latitude = latitude
         self.longitude = longitude
 

@@ -8,7 +8,7 @@ from martcal.port import PortFinder
 from martcal.port import PortsList
 
 class Route:
-    def __init__(self, destination: Port):
+    def __init__(self, destination: Port) -> None:
         plist = PortsList()
         self.distances = plist.distances(destination.name)
         self.destination = destination

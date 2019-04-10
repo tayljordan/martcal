@@ -12,7 +12,7 @@ from operator import itemgetter
 from martcal.geocoord import GeoCoord
 
 class Port:
-    def __init__(self, name: str, location: GeoCoord):
+    def __init__(self, name: str, location: GeoCoord) -> None:
         self.name = name
         self.location = location
 
@@ -20,7 +20,7 @@ class Port:
         return '{} {}'.format(self.name, self.location)
 
 class Ports:
-    def __init__(self, ports: List):
+    def __init__(self, ports: List) -> None:
         self.ports = ports
         self.index = 0
 
@@ -44,7 +44,7 @@ class Ports:
 class PortFinder:
     ports = {}
 
-    def __init__(self):
+    def __init__(self) -> None:
         plist = PortsList()
         PortFinder.ports = plist.ports()
 
@@ -69,7 +69,7 @@ class PortsList:
     FILE_PORTS = 'ports.json'
     FILE_DISTANCES = 'distances.json'
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.plist = None
 
     def ports(self) -> Dict:
