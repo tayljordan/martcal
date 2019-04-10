@@ -13,11 +13,11 @@ class Route:
         self.distances = ports_list.distances(destination.name)
         self.finder = PortFinder(ports_list)
 
-    def distance_from(self, location: GeoCoord) -> Optional[float]:
+    def distance_from(self, geocoord: GeoCoord) -> Optional[float]:
         if not self.distances:
             return None
 
-        ports = self.finder.nearest(location)
+        ports = self.finder.nearest(geocoord)
 
         while True:
             try:
@@ -28,11 +28,11 @@ class Route:
             except IndexError:
                 return None
 
-        loc_near_bearing = location.bearing(nearest.location)
-        near_dest_bearing = nearest.location.bearing(self.destination.location)
+        loc_near_bearing = geocoord.bearing(nearest.geocoord)
+        near_dest_bearing = nearest.geocoord.bearing(self.destination.geocoord)
         angular_distance = trig.angular_distance(near_dest_bearing, loc_near_bearing)
 
-        loc_near_distance = location.distance(nearest.location)
+        loc_near_distance = geocoord.distance(nearest.geocoord)
 
         distance = trig.distance(
             loc_near_distance, near_dest_distance, angular_distance)

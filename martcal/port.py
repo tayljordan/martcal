@@ -13,12 +13,12 @@ from pathlib import Path
 from martcal.geocoord import GeoCoord
 
 class Port:
-    def __init__(self, name: str, location: GeoCoord) -> None:
+    def __init__(self, name: str, geocoord: GeoCoord) -> None:
         self.name = name
-        self.location = location
+        self.geocoord = geocoord
 
     def __str__(self) -> str:
-        return '{} {}'.format(self.name, self.location)
+        return '{} {}'.format(self.name, self.geocoord)
 
 class Ports:
     def __init__(self, ports: List) -> None:
@@ -79,11 +79,11 @@ class PortFinder:
     def __init__(self, ports_list: PortsList) -> None:
         PortFinder.ports = ports_list.ports()
 
-    def nearest(self, location: GeoCoord) -> Ports:
+    def nearest(self, geocoord: GeoCoord) -> Ports:
         nearest = []
         for name, coords in PortFinder.ports.items():
             port = Port(name, GeoCoord(coords['latitude'], coords['longitude']))
-            distance = location.distance(port.location)
+            distance = geocoord.distance(port.geocoord)
             nearest.append((port, distance))
 
         return Ports(sorted(nearest, key=itemgetter(1)))

@@ -10,19 +10,19 @@ class GeoCoord:
     def __str__(self) -> str:
         return '({}, {})'.format(self.latitude, self.longitude)
 
-    def distance(self, location) -> float:
+    def distance(self, geocoord) -> float:
         start = (self.latitude, self.longitude)
-        end = (location.latitude, location.longitude)
+        end = (geocoord.latitude, geocoord.longitude)
 
         return great_circle(start, end).miles
 
-    def bearing(self, location) -> float:
+    def bearing(self, geocoord) -> float:
         # https://gist.github.com/jeromer/2005586
 
         start_lat = math.radians(self.latitude)
-        end_lat = math.radians(location.latitude)
+        end_lat = math.radians(geocoord.latitude)
 
-        diff_long = math.radians(location.longitude - self.longitude)
+        diff_long = math.radians(geocoord.longitude - self.longitude)
 
         x = math.sin(diff_long) * math.cos(end_lat)
         y = math.cos(start_lat) * math.sin(end_lat) - (math.sin(start_lat)
