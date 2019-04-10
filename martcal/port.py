@@ -3,11 +3,12 @@ from typing import Optional
 from typing import List
 from typing import Dict
 
+import errno
 import json
 import os
-import sys
 
 from operator import itemgetter
+from pathlib import Path
 
 from martcal.geocoord import GeoCoord
 
@@ -41,12 +42,42 @@ class Ports:
     def current(self) -> Port:
         return self.ports[self.index][0]
 
+class PortsList:
+    FILE_PORTS = 'ports.json'
+    FILE_DISTANCES = 'distances.json'
+
+    def __init__(self, directory: str) -> None:
+        path = Path(directory).resolve()
+        if not path.is_dir():
+            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), directory)
+
+        self.path = path
+        self.ports_list = None
+
+    def ports(self) -> Optional[Dict]:
+        if self.ports_list is None:
+            path = self.path.joinpath(PortsList.FILE_PORTS)
+            with path.open() as file:
+                self.ports_list = json.load(file)
+
+        return self.ports_list
+
+    def distances(self, name: str) -> Optional[Dict]:
+        path = self.path.joinpath(PortsList.FILE_DISTANCES)
+        with path.open() as file:
+            ports = json.load(file)
+
+        for port in ports:
+            if port['properties']['city'] == name:
+                return port['distances']
+
+        return None
+
 class PortFinder:
     ports = {}
 
-    def __init__(self) -> None:
-        plist = PortsList()
-        PortFinder.ports = plist.ports()
+    def __init__(self, ports_list: PortsList) -> None:
+        PortFinder.ports = ports_list.ports()
 
     def nearest(self, location: GeoCoord) -> Ports:
         nearest = []
@@ -63,30 +94,3 @@ class PortFinder:
 
         port = self.ports[name]
         return Port(name, GeoCoord(port['latitude'], port['longitude']))
-
-class PortsList:
-    DATA_DIR = os.path.dirname(sys.modules['__main__'].__file__) + '/../data/'
-    FILE_PORTS = 'ports.json'
-    FILE_DISTANCES = 'distances.json'
-
-    def __init__(self) -> None:
-        self.plist = None
-
-    def ports(self) -> Dict:
-        if not self.plist:
-            filename = PortsList.DATA_DIR + PortsList.FILE_PORTS
-            with open(filename) as file:
-                self.plist = json.load(file)
-
-        return self.plist
-
-    def distances(self, name: str) -> Optional[Dict]:
-        filename = PortsList.DATA_DIR + PortsList.FILE_DISTANCES
-        with open(filename) as file:
-            ports = json.load(file)
-
-        for port in ports:
-            if port['properties']['city'] == name:
-                return port['distances']
-
-        return None

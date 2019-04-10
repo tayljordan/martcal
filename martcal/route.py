@@ -8,17 +8,16 @@ from martcal.port import PortFinder
 from martcal.port import PortsList
 
 class Route:
-    def __init__(self, destination: Port) -> None:
-        plist = PortsList()
-        self.distances = plist.distances(destination.name)
+    def __init__(self, destination: Port, ports_list: PortsList) -> None:
         self.destination = destination
+        self.distances = ports_list.distances(destination.name)
+        self.finder = PortFinder(ports_list)
 
     def distance_from(self, location: GeoCoord) -> Optional[float]:
         if not self.distances:
             return None
 
-        finder = PortFinder()
-        ports = finder.nearest(location)
+        ports = self.finder.nearest(location)
 
         while True:
             try:
