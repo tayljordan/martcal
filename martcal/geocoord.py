@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import math
 
 from geopy.distance import great_circle
@@ -12,13 +10,13 @@ class GeoCoord:
     def __str__(self) -> str:
         return '({}, {})'.format(self.latitude, self.longitude)
 
-    def distance(self, location: GeoCoord) -> float:
+    def distance(self, location) -> float:
         start = (self.latitude, self.longitude)
         end = (location.latitude, location.longitude)
 
         return great_circle(start, end).miles
 
-    def bearing(self, location: GeoCoord) -> float:
+    def bearing(self, location) -> float:
         # https://gist.github.com/jeromer/2005586
 
         start_lat = math.radians(self.latitude)

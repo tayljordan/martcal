@@ -1,4 +1,3 @@
-from __future__ import annotations
 
 from typing import List
 from typing import Dict
@@ -19,35 +18,12 @@ class Port:
     def __str__(self) -> str:
         return '{} {}'.format(self.name, self.location)
 
-class PortFinder:
-    ports = None
-
-    def __init__(self):
-        plist = PortsList()
-        PortFinder.ports = plist.ports()
-
-    def nearest(self, location: GeoCoord) -> Port:
-        nearest = []
-        for name, coords in PortFinder.ports.items():
-            port = Port(name, GeoCoord(coords['latitude'], coords['longitude']))
-            distance = location.distance(port.location)
-            nearest.append((port, distance))
-
-        return Ports(sorted(nearest, key=itemgetter(1)))
-
-    def from_name(self, name: str) -> Port:
-        if name not in self.ports:
-            return None
-
-        port = self.ports[name]
-        return Port(name, GeoCoord(port['latitude'], port['longitude']))
-
 class Ports:
     def __init__(self, ports: List):
         self.ports = ports
         self.index = 0
 
-    def __iter__(self) -> Ports:
+    def __iter__(self):
         return self
 
     def __next__(self) -> Port:
@@ -63,6 +39,29 @@ class Ports:
 
     def current(self) -> Port:
         return self.ports[self.index][0]
+
+class PortFinder:
+    ports = {}
+
+    def __init__(self):
+        plist = PortsList()
+        PortFinder.ports = plist.ports()
+
+    def nearest(self, location: GeoCoord) -> Ports:
+        nearest = []
+        for name, coords in PortFinder.ports.items():
+            port = Port(name, GeoCoord(coords['latitude'], coords['longitude']))
+            distance = location.distance(port.location)
+            nearest.append((port, distance))
+
+        return Ports(sorted(nearest, key=itemgetter(1)))
+
+    def from_name(self, name: str) -> Port:
+        if name not in self.ports:
+            return None
+
+        port = self.ports[name]
+        return Port(name, GeoCoord(port['latitude'], port['longitude']))
 
 class PortsList:
     DATA_DIR = os.path.dirname(sys.modules['__main__'].__file__) + '/../data/'
