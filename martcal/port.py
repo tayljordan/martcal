@@ -1,3 +1,4 @@
+from typing import Optional
 
 from typing import List
 from typing import Dict
@@ -56,7 +57,7 @@ class PortFinder:
 
         return Ports(sorted(nearest, key=itemgetter(1)))
 
-    def from_name(self, name: str) -> Port:
+    def from_name(self, name: str) -> Optional[Port]:
         if name not in self.ports:
             return None
 
@@ -79,7 +80,7 @@ class PortsList:
 
         return self.plist
 
-    def distances(self, name: str) -> Dict:
+    def distances(self, name: str) -> Optional[Dict]:
         filename = PortsList.DATA_DIR + PortsList.FILE_DISTANCES
         with open(filename) as file:
             ports = json.load(file)

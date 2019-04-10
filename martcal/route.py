@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Optional
 
 from martcal import trig
 
@@ -13,7 +13,7 @@ class Route:
         self.distances = plist.distances(destination.name)
         self.destination = destination
 
-    def distance_from(self, location: GeoCoord):
+    def distance_from(self, location: GeoCoord) -> Optional[float]:
         if not self.distances:
             return None
 
