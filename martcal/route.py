@@ -31,11 +31,9 @@ class Route:
 
         loc_near_bearing = location.bearing(nearest.location)
         near_dest_bearing = nearest.location.bearing(self.destination.location)
+        angular_distance = trig.angular_distance(near_dest_bearing, loc_near_bearing)
 
         loc_near_distance = location.distance(nearest.location)
-        loc_dest_distance = location.distance(self.destination.location)
-
-        angular_distance = trig.angular_distance(near_dest_bearing, loc_near_bearing)
 
         distance = trig.distance(
             loc_near_distance, near_dest_distance, angular_distance)
