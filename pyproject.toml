@@ -6,6 +6,24 @@ authors = [
     "Jordan Taylor",
     "Miodrag Tokić"
 ]
+license = "MIT"
+
+readme = "README.md"
+
+homepage = "http://jordantaylor.io"
+repository = "https://github.com/tayljordan/martcal"
+documentation = "https://github.com/tayljordan/martcal/tree/master/doc"
+
+keywords = ["GIS", "routing", "maritime"]
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Other Audience",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
 
 [tool.poetry.dependencies]
 python = "^3.5"
