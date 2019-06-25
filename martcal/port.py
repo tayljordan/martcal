@@ -49,7 +49,7 @@ class PortsList:
     def __init__(self, directory: str) -> None:
         path = Path(directory).resolve()
         if not path.is_dir():
-            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), directory)
+            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), str(path))
 
         self.path = path
         self.ports_list = None
