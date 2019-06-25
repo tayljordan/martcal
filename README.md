@@ -1,7 +1,7 @@
 martcal
 =======
 
-Current release: 0.1.0-devel
+Current release: 0.1.0
 
 
 Description
