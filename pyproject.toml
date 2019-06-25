@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "martcal"
-version = "0.1.0"
+version = "0.1.0-beta"
 description = "Calculate the distance from any point at sea to a port, accounting for land masses"
 authors = [
     "Jordan Taylor",
