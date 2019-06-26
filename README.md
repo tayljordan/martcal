@@ -10,8 +10,7 @@ Description
 Martcal is a Python package for calculating the distance from any point
 at sea to a port, accounting for land masses. The routing calculations
 are based on a type of spherical trigonometry, where the system finds
-the nearest port from sea using a mercator route, then solves for the
-triangle.
+the 1. nearest port from sea using a mercator distance and 2. distance from nearest port to destination port using distance tables. The outcome will be the solution of resultant triangle.
 
 
 Installation
