@@ -43,6 +43,7 @@ Open an issue or send a pull request on the Github
 Authors
 -------
 
+ - Ioannis Priovolos 
  - Jordan Taylor
  - Miodrag Tokić
 
