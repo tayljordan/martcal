@@ -51,6 +51,4 @@ Authors
 Copyright
 ---------
 
-Copyright (C) 2019 Jordan Taylor.
-
 Released under the MIT License. See the LICENSE file for details.
