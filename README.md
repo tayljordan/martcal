@@ -8,7 +8,7 @@ Description
 -----------
 
 Martcal is a Python package for calculating the distance from any point
-at sea to a port, accounting for land masses. The outcome uses a grid and to derive a trigonometric solution. The application is not quality tested 
+at sea to a port, accounting for land masses. The outcome uses a grid to derive a trigonometric solution. The application is not quality tested 
 and may be unsuitable for commercial use.
 
 Installation
@@ -43,7 +43,6 @@ Open an issue or send a pull request on the Github
 Authors
 -------
 
- - Ioannis Priovolos 
  - Jordan Taylor
  - Miodrag Tokić
 
